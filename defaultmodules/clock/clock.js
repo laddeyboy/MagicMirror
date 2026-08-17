@@ -28,7 +28,9 @@ Module.register("clock", {
 		showSunTimes: false, // options: true, false, 'disableNextEvent'
 		showMoonTimes: false, // options: false, 'times' (rise/set), 'percent' (lit percent), 'phase' (current phase), or 'both' (percent & phase)
 		lat: 47.630539,
-		lon: -122.344147
+		lon: -122.344147,
+		// Show a compact month calendar under the time (month + day grid with today highlighted)
+		showMonthCalendar: true
 	},
 	// Define required scripts.
 	getScripts () {
@@ -231,6 +233,47 @@ Module.register("clock", {
 			}
 
 			digitalWrapper.appendChild(weekWrapper);
+		}
+
+		// Compact month calendar showing month and day grid with today highlighted
+		if (this.config.showMonthCalendar) {
+			const calWrapper = document.createElement("div");
+			calWrapper.className = "month-calendar dimmed small";
+
+			const monthName = document.createElement("div");
+			monthName.className = "month-name";
+			monthName.innerHTML = now.format("MMMM YYYY");
+			calWrapper.appendChild(monthName);
+
+			// Weekday headings (Sun, Mon, Tues, ...)
+			const weekdays = document.createElement("div");
+			weekdays.className = "weekdays";
+			const weekdayLabels = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+			weekdayLabels.forEach((label) => {
+				const el = document.createElement("span");
+				el.className = "weekday";
+				el.textContent = label;
+				weekdays.appendChild(el);
+			});
+			calWrapper.appendChild(weekdays);
+
+			const daysContainer = document.createElement("div");
+			daysContainer.className = "days";
+
+			// const startOfMonth = now.clone().startOf("month");
+			const endOfMonth = now.clone().endOf("month");
+			const totalDays = endOfMonth.date();
+
+			for (let d = 1; d <= totalDays; d++) {
+				const dayEl = document.createElement("span");
+				dayEl.className = "day";
+				if (d === now.date()) dayEl.classList.add("today");
+				dayEl.textContent = String(d);
+				daysContainer.appendChild(dayEl);
+			}
+
+			calWrapper.appendChild(daysContainer);
+			digitalWrapper.appendChild(calWrapper);
 		}
 
 		/****************************************************************

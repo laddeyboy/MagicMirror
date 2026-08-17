@@ -1,0 +1,65 @@
+.aroundnow-wrapper {
+  font-family: inherit;
+  color: var(--dim-black, #fff);
+}
+.aroundnow-daysrow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.aroundnow-daycol {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.aroundnow-daycol.today {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.day-header {
+  text-align: center;
+  margin-bottom: 6px;
+}
+.day-name {
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+.day-num {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.allday-row {
+  min-height: 24px;
+  margin-bottom: 6px;
+}
+.allday-event {
+  background: rgba(255, 165, 0, 0.18);
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  font-size: 0.85em;
+}
+.timeline {
+  position: relative;
+  background: transparent;
+  overflow: hidden;
+}
+.aroundnow-event {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 2px;
+  padding: 4px;
+  background: rgba(30, 144, 255, 0.9);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 0.85em;
+  box-sizing: border-box;
+}
+.now-line {
+  position: relative;
+  height: 2px;
+  background: #ff4444;
+  margin-top: 6px;
+}

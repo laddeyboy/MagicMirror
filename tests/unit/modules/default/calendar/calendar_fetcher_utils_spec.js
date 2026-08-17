@@ -305,13 +305,13 @@ END:VCALENDAR`);
 			expect(end).toEqual(moment().startOf("day").add(30, "days").toDate());
 		});
 
-		it("starts now when includePastEvents is false", () => {
-			const before = Date.now();
+		it("starts one day before today's midnight when includePastEvents is false", () => {
+			// Padded a day back so ics-filter's non-timezone-aware string comparison
+			// can't wrongly exclude a same-day event in a timezone behind UTC; the
+			// exact, timezone-aware cutoff is enforced later in filterEvents().
 			const [start] = CalendarFetcherUtils.calculateFilterWindow({ includePastEvents: false, maximumNumberOfDays: 30 });
-			const after = Date.now();
 
-			expect(start.getTime()).toBeGreaterThanOrEqual(before);
-			expect(start.getTime()).toBeLessThanOrEqual(after);
+			expect(start).toEqual(moment().startOf("day").subtract(1, "days").toDate());
 		});
 
 		it("starts maximumNumberOfDays before today's midnight when includePastEvents is true", () => {

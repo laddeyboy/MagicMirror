@@ -116,3 +116,48 @@
 .module.clock .clock-second-digital {
   color: var(--color-text-dimmed);
 }
+
+/* Compact month calendar styles */
+.module.clock .month-calendar {
+  margin-top: 6px;
+}
+.module.clock .month-calendar .month-name {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.module.clock .month-calendar .days {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  gap: 4px;
+  justify-items: start;
+  justify-content: start;
+  padding-left: 0;
+  margin-left: 0;
+}
+.module.clock .month-calendar .weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  gap: 4px;
+  justify-items: start;
+  justify-content: start;
+  margin-bottom: 4px;
+  padding-left: 0;
+  margin-left: 0;
+}
+.module.clock .month-calendar .weekday {
+  color: var(--color-text-dimmed);
+  font-weight: 600;
+  font-size: 0.85em;
+}
+.module.clock .month-calendar .day {
+  min-width: 18px;
+  line-height: 18px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: var(--color-text-dimmed);
+}
+.module.clock .month-calendar .day.today {
+  background: var(--color-highlight, #ffd54f);
+  color: var(--color-text-dark, #000);
+  font-weight: 700;
+}

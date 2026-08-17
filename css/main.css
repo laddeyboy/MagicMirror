@@ -136,6 +136,7 @@ sup {
 
 .module {
   margin-bottom: var(--gap-modules);
+  border: 2px solid red;
 }
 
 .module.hidden {
@@ -263,4 +264,24 @@ sup {
 
 .region.right .flex {
   justify-content: flex-end;
+}
+
+/* Constrain height of modules in top regions to prevent overlap with bottom_bar */
+.region.top .module {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+.region.bottom.bar {
+  height: 50vh;
+}
+
+.region.top.center .container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Adjust spacing between the calendars */
+}
+
+.region.top.center .container .module {
+  flex: 1;
 }

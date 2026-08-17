@@ -50,9 +50,18 @@ const CalendarFetcherUtils = {
 	 */
 	calculateFilterWindow (config) {
 		const today = moment().startOf("day");
+
+		/*
+		 * ics-filter compares TZID-qualified local times against "now" as raw digit
+		 * strings, without resolving them to an absolute instant first. That makes it
+		 * misjudge a same-day event as already past whenever the calendar's local
+		 * timezone runs behind UTC (e.g. an evening event in America/Chicago). Pad the
+		 * lower bound back a day so this coarse pre-filter never drops something that
+		 * the timezone-aware cutoff in filterEvents() would otherwise keep.
+		 */
 		const start = config.includePastEvents
 			? today.clone().subtract(config.maximumNumberOfDays, "days").toDate()
-			: new Date();
+			: today.clone().subtract(1, "days").toDate();
 		const end = today.clone().add(config.maximumNumberOfDays, "days").toDate();
 		return [start, end];
 	},
