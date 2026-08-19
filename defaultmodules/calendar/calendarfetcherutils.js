@@ -107,15 +107,12 @@ const CalendarFetcherUtils = {
 			}
 
 			const title = CalendarFetcherUtils.getTitleFromEvent(event);
-			Log.debug(`title: ${title}`);
 
 			// Return quickly if event should be excluded.
 			const { excluded, until: eventFilterUntil } = CalendarFetcherUtils.shouldEventBeExcluded(config, title);
 			if (excluded) {
 				return;
 			}
-
-			Log.debug(`Event: ${title} | start: ${event.start} | end: ${event.end} | recurring: ${!!event.rrule}`);
 
 			const location = CalendarFetcherUtils.unwrapParameterValue(event.location) || false;
 			const geo = event.geo || false;
@@ -143,7 +140,7 @@ const CalendarFetcherUtils = {
 
 				const instanceTitle = CalendarFetcherUtils.getTitleFromEvent(instanceEvent);
 
-				Log.debug(`saving event: ${instanceTitle}, start: ${startMoment.toDate()}, end: ${endMoment.toDate()}`);
+				// Log.debug(`saving event: ${instanceTitle}, start: ${startMoment.toDate()}, end: ${endMoment.toDate()}`);
 				newEvents.push({
 					title: instanceTitle,
 					startDate: startMoment.format("x"),

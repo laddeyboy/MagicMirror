@@ -1,3 +1,4 @@
+const util = require("node:util");
 const ical = require("node-ical");
 const Log = require("logger");
 const CalendarFetcherUtils = require("./calendarfetcherutils");
@@ -68,6 +69,7 @@ class CalendarFetcher {
 			const parsed = await ical.async.parseICS(filteredData);
 
 			Log.debug(`Parsed iCal data from ${this.url} with ${Object.keys(parsed).length} entries.`);
+			Log.debug(`Raw iCal fields from ${this.url}:\n${util.inspect(parsed, { depth: 6, maxArrayLength: null })}`);
 
 			this.events = CalendarFetcherUtils.filterEvents(parsed, {
 				excludedEvents: this.excludedEvents,

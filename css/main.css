@@ -136,7 +136,6 @@ sup {
 
 .module {
   margin-bottom: var(--gap-modules);
-  border: 2px solid red;
 }
 
 .module.hidden {

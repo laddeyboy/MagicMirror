@@ -88,6 +88,14 @@ function createWindow () {
 	// Create the browser window.
 	mainWindow = new BrowserWindow(electronOptions);
 
+	// Send window.open() calls to the OS's default browser instead of opening an in-app window.
+	mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+		if (url.startsWith("http://") || url.startsWith("https://")) {
+			electron.shell.openExternal(url);
+		}
+		return { action: "deny" };
+	});
+
 	/*
 	 * and load the index.html of the app.
 	 * If config.address is not defined or is an empty string (listening on all interfaces), connect to localhost
