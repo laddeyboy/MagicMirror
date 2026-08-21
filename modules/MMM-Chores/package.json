@@ -1,0 +1,8 @@
+{
+	"name": "mmm-chores",
+	"version": "1.0.0",
+	"description": "Touchscreen daily chore board with a three-week set rotation between children, backed by a persisted chores.json.",
+	"main": "MMM-Chores.js",
+	"license": "MIT",
+	"dependencies": {}
+}

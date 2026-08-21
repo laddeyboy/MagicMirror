@@ -30,7 +30,10 @@ Module.register("clock", {
 		lat: 47.630539,
 		lon: -122.344147,
 		// Show a compact month calendar under the time (month + day grid with today highlighted)
-		showMonthCalendar: true
+		showMonthCalendar: true,
+		// Highlight US holidays (New Year's, MLK Day, Presidents Day, Good Friday, Memorial Day,
+		// Juneteenth, Independence Day, Labor Day, Columbus Day, Veterans Day, Thanksgiving, Christmas) in red
+		highlightHolidays: true
 	},
 	// Define required scripts.
 	getScripts () {
@@ -89,6 +92,60 @@ Module.register("clock", {
 		// Set locale.
 		moment.locale(config.language);
 	},
+
+	// Date of Easter Sunday for a given year (Anonymous Gregorian algorithm), used to derive Good Friday.
+	getEasterDate (year) {
+		const a = year % 19;
+		const b = Math.floor(year / 100);
+		const c = year % 100;
+		const d = Math.floor(b / 4);
+		const e = b % 4;
+		const f = Math.floor((b + 8) / 25);
+		const g = Math.floor((b - f + 1) / 3);
+		const h = (19 * a + b - d - g + 15) % 30;
+		const i = Math.floor(c / 4);
+		const k = c % 4;
+		const l = (32 + 2 * e + 2 * i - h - k) % 7;
+		const m = Math.floor((a + 11 * h + 22 * l) / 451);
+		const month = Math.floor((h + l - 7 * m + 114) / 31);
+		const day = ((h + l - 7 * m + 114) % 31) + 1;
+		return moment({ year, month: month - 1, day });
+	},
+
+	// nth (1-based) occurrence of a weekday (0=Sunday) in a given month (0-indexed).
+	nthWeekdayOfMonth (year, month, weekday, n) {
+		const first = moment({ year, month, day: 1 });
+		const offset = (weekday - first.day() + 7) % 7;
+		return first.add(offset + (n - 1) * 7, "days");
+	},
+
+	// Last occurrence of a weekday (0=Sunday) in a given month (0-indexed).
+	lastWeekdayOfMonth (year, month, weekday) {
+		const last = moment({ year, month }).endOf("month");
+		const offset = (last.day() - weekday + 7) % 7;
+		return last.subtract(offset, "days");
+	},
+
+	// Returns a Set of "YYYY-M-D" strings for the observed US holidays in the given year.
+	getUSHolidays (year) {
+		const goodFriday = this.getEasterDate(year).subtract(2, "days");
+		const dates = [
+			moment({ year, month: 0, day: 1 }), // New Year's Day
+			this.nthWeekdayOfMonth(year, 0, 1, 3), // MLK Day - 3rd Monday of January
+			this.nthWeekdayOfMonth(year, 1, 1, 3), // Presidents Day - 3rd Monday of February
+			goodFriday,
+			this.lastWeekdayOfMonth(year, 4, 1), // Memorial Day - last Monday of May
+			moment({ year, month: 5, day: 19 }), // Juneteenth
+			moment({ year, month: 6, day: 4 }), // Independence Day
+			this.nthWeekdayOfMonth(year, 8, 1, 1), // Labor Day - 1st Monday of September
+			this.nthWeekdayOfMonth(year, 9, 1, 2), // Columbus Day - 2nd Monday of October
+			moment({ year, month: 10, day: 11 }), // Veterans Day
+			this.nthWeekdayOfMonth(year, 10, 4, 4), // Thanksgiving - 4th Thursday of November
+			moment({ year, month: 11, day: 25 }) // Christmas Day
+		];
+		return new Set(dates.map((d) => d.format("YYYY-M-D")));
+	},
+
 	// Override dom generator.
 	getDom () {
 		const wrapper = document.createElement("div");
@@ -260,14 +317,23 @@ Module.register("clock", {
 			const daysContainer = document.createElement("div");
 			daysContainer.className = "days";
 
-			// const startOfMonth = now.clone().startOf("month");
+			const startOfMonth = now.clone().startOf("month");
 			const endOfMonth = now.clone().endOf("month");
 			const totalDays = endOfMonth.date();
+			const holidays = this.config.highlightHolidays ? this.getUSHolidays(now.year()) : new Set();
+
+			// Pad with empty cells so day 1 lines up under its weekday column
+			for (let s = 0; s < startOfMonth.day(); s++) {
+				const spacerEl = document.createElement("span");
+				spacerEl.className = "day spacer";
+				daysContainer.appendChild(spacerEl);
+			}
 
 			for (let d = 1; d <= totalDays; d++) {
 				const dayEl = document.createElement("span");
 				dayEl.className = "day";
 				if (d === now.date()) dayEl.classList.add("today");
+				if (holidays.has(`${now.year()}-${now.month() + 1}-${d}`)) dayEl.classList.add("holiday");
 				dayEl.textContent = String(d);
 				daysContainer.appendChild(dayEl);
 			}

@@ -120,14 +120,16 @@
 /* Compact month calendar styles */
 .module.clock .month-calendar {
   margin-top: 6px;
+  font-size: calc(var(--font-size-small));
 }
+
 .module.clock .month-calendar .month-name {
   font-weight: 600;
   margin-bottom: 4px;
 }
 .module.clock .month-calendar .days {
   display: grid;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(7, 22px);
   gap: 4px;
   justify-items: start;
   justify-content: start;
@@ -136,7 +138,7 @@
 }
 .module.clock .month-calendar .weekdays {
   display: grid;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(7, 22px);
   gap: 4px;
   justify-items: start;
   justify-content: start;
@@ -148,16 +150,28 @@
   color: var(--color-text-dimmed);
   font-weight: 600;
   font-size: 0.85em;
+  box-sizing: border-box;
+  width: 22px;
+  text-align: center;
 }
 .module.clock .month-calendar .day {
-  min-width: 18px;
+  box-sizing: border-box;
+  width: 22px;
   line-height: 18px;
-  padding: 2px 4px;
+  padding: 2px 0;
   border-radius: 4px;
+  text-align: center;
   color: var(--color-text-dimmed);
 }
 .module.clock .month-calendar .day.today {
   background: var(--color-highlight, #ffd54f);
   color: var(--color-text-dark, #000);
   font-weight: 700;
+}
+.module.clock .month-calendar .day.holiday {
+  color: #ff3b30;
+  font-weight: 700;
+}
+.module.clock .month-calendar .day.holiday.today {
+  color: #b30000;
 }

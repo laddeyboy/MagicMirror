@@ -1,0 +1,94 @@
+{
+	"rotation": {
+		"Noah": "setA",
+		"Annalise": "setB",
+		"Luke": "setC"
+	},
+	"chores": [
+		{
+			"id": "1",
+			"name": "Collect Dirty Clothes",
+			"group": "setA"
+		},
+		{
+			"id": "2",
+			"name": "Put Dry Clothes In Basket",
+			"group": "setA"
+		},
+		{
+			"id": "3",
+			"name": "Put Wet Clothes in Dryer",
+			"group": "setA"
+		},
+		{
+			"id": "4",
+			"name": "Wash Dishes",
+			"group": "setA"
+		},
+		{
+			"id": "5",
+			"name": "Load Dishwasher",
+			"group": "setA"
+		},
+		{
+			"id": "6",
+			"name": "Clear and Wipe Counters",
+			"group": "setB"
+		},
+		{
+			"id": "7",
+			"name": "Take out Trash",
+			"group": "setB"
+		},
+		{
+			"id": "8",
+			"name": "Take out Recylcing",
+			"group": "setB"
+		},
+		{
+			"id": "9",
+			"name": "Unload Top Dishwasher Rack",
+			"group": "setB"
+		},
+		{
+			"id": "10",
+			"name": "Dry & Put Away Counter Dishes",
+			"group": "setC"
+		},
+		{
+			"id": "11",
+			"name": "Sweep Floor",
+			"group": "setC"
+		},
+		{
+			"id": "12",
+			"name": "Put Leftovers Away",
+			"group": "setC"
+		},
+		{
+			"id": "13",
+			"name": "Unload Bottom Dishwasher Rack",
+			"group": "setC"
+		},
+		{
+			"id": "14",
+			"name": "Straighten Living Room",
+			"group": "setC"
+		},
+		{
+			"id": "20",
+			"name": "Wash car",
+			"group": "extras"
+		},
+		{
+			"id": "21",
+			"name": "Clean garage",
+			"group": "extras"
+		},
+		{
+			"id": "22",
+			"name": "Vacuum living room",
+			"group": "extras"
+		}
+	]
+}

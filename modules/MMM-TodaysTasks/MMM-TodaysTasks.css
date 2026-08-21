@@ -1,0 +1,97 @@
+.tt-wrapper {
+  width: 100%;
+  min-width: 300px;
+  max-width: 480px;
+  box-sizing: border-box;
+}
+
+.tt-heading {
+  font-size: var(--font-size-medium);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.tt-empty {
+  padding: 4px 0;
+}
+
+.tt-table {
+  display: table;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  font-size: 1em;
+}
+
+.tt-row {
+  display: table-row;
+}
+
+.tt-table td {
+  display: table-cell;
+  padding: 4px 6px;
+  vertical-align: top;
+}
+
+.tt-time {
+  width: 4.5em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tt-title {
+  text-align: left;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.tt-title-text {
+  display: inline;
+}
+
+.tt-icon {
+  display: inline-block;
+  width: 1.4em;
+  text-align: center;
+  margin-right: 4px;
+}
+
+.tt-status {
+  margin-top: 2px;
+}
+
+.tt-edt {
+  width: 6em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.tt-edt-icon {
+  margin-right: 3px;
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+.tt-row.tt-current .tt-title-text {
+  color: var(--color-text-bright);
+  font-weight: 600;
+}
+
+.tt-row.tt-current {
+  position: relative;
+}
+
+.tt-row.tt-current .tt-time::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-bright);
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.tt-more {
+  margin-top: 6px;
+}

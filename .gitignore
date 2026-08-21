@@ -57,6 +57,14 @@ Temporary Items
 # Ignore all modules
 /modules/*
 
+# ...except our own custom modules
+!/modules/MMM-AroundNow
+!/modules/MMM-Chores
+!/modules/MMM-DashboardNavigation
+!/modules/MMM-TodaysTasks
+!/modules/MMM-WeeklyCalendar
+!/modules/ChoresPrompt.md
+
 # Ignore users config file but keep the samples.
 config
 !config/config.js.sample

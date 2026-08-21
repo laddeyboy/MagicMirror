@@ -1,0 +1,8 @@
+{
+	"name": "mmm-todaystasks",
+	"version": "1.0.0",
+	"description": "Compact 'what do I have to do today' view built from MagicMirror's calendar module, with estimated drive times.",
+	"main": "MMM-TodaysTasks.js",
+	"license": "MIT",
+	"dependencies": {}
+}
